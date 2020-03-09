@@ -34,7 +34,7 @@ public class VariableReferencePropertyDrawer : PropertyDrawer
             position.size -= new Vector2(18, 0);
             EditorGUI.PropertyField(position, constant, new GUIContent(""), true);
         }
-        else 
+        else
         {
             var variable = property.FindPropertyRelative("_variabelValue");
             EditorGUI.PropertyField(position, variable, new GUIContent(""), true);
