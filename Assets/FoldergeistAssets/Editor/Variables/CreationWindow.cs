@@ -65,7 +65,9 @@ namespace FoldergeistAssets
 
                     if(wasList != _isList)
                     {
-
+                        _variableName = $"{_type.Name}{(_isList ? "List" : "")}Variable";
+                        _referenceName = $"{_type.Name}{(_isList ? "List" : "")}Reference";
+                        _readOnlyReferenceName = $"ReadOnly{_type.Name}{(_isList ? "List" : "")}Reference";
                     }
 
                     if (_variableName != string.Empty && _referenceName != string.Empty && _readOnlyReferenceName != string.Empty &&
