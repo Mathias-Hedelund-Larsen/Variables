@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,16 +17,15 @@ namespace FoldergeistAssets
             private string _type = string.Empty;
             private string _variableName = string.Empty;
             private string _referenceName = string.Empty;
+            private string _readOnlyReferenceName = string.Empty;
             private int _selected;
             private int _typeIndex = -1;
             private string _path;
-            private bool _readOnly;
 
-            public static void ShowWindow(string path, bool readOnly)
+            public static void ShowWindow(string path)
             {
                 var window = GetWindow<CreationWindow>();
                 window._path = path;
-                window._readOnly = readOnly;
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies().Where(a => !a.FullName.Contains("Editor") && !a.FullName.Contains("firstpass")).ToList();
 
 
@@ -59,10 +57,13 @@ namespace FoldergeistAssets
                 {
                     _variableName = EditorGUILayout.TextField("Name the variable class", _variableName);
                     _referenceName = EditorGUILayout.TextField("Name the reference class", _referenceName);
+                    _readOnlyReferenceName = EditorGUILayout.TextField("Name the read only reference class", _readOnlyReferenceName);
 
-                    if (_variableName != string.Empty && _referenceName != string.Empty && _variableName != _referenceName)
+                    if (_variableName != string.Empty && _referenceName != string.Empty && _readOnlyReferenceName != string.Empty &&
+                        _variableName != _referenceName && _variableName != _readOnlyReferenceName && _referenceName != _readOnlyReferenceName)
                     {
-                        if (!_availableTypesShortened.Contains(_variableName) && !_availableTypesShortened.Contains(_referenceName))
+                        if (!_availableTypesShortened.Contains(_variableName) && !_availableTypesShortened.Contains(_referenceName) && 
+                            !_availableTypesShortened.Contains(_readOnlyReferenceName))
                         {
                             if (GUILayout.Button("Create scripts"))
                             {
@@ -72,7 +73,7 @@ namespace FoldergeistAssets
                                     writer.WriteLine("using FoldergeistAssets.Variables;");
                                     writer.WriteLine("");
                                     writer.WriteLine($"[CreateAssetMenu(fileName = \"{_variableName}\", menuName = \"FoldergeistAssets/Variables/{_variableName}\", order = 0)]");
-                                    writer.WriteLine($"public sealed class {_variableName} : {(_readOnly ? "ReadOnly" : "")}Variable<{Type.GetType(_availableTypes[_typeIndex]).FullName}>");
+                                    writer.WriteLine($"public sealed class {_variableName} : Variable<{Type.GetType(_availableTypes[_typeIndex]).FullName}>");
                                     writer.WriteLine("{");
                                     writer.WriteLine("}");
                                 }
@@ -83,7 +84,18 @@ namespace FoldergeistAssets
                                     writer.WriteLine("using FoldergeistAssets.Variables;");
                                     writer.WriteLine("");
                                     writer.WriteLine("[Serializable]");
-                                    writer.WriteLine($"public sealed class {_referenceName} : {(_readOnly ? "ReadOnly" : "")}VariableReference<{Type.GetType(_availableTypes[_typeIndex]).FullName}, {_variableName}>");
+                                    writer.WriteLine($"public sealed class {_referenceName} : VariableReference<{Type.GetType(_availableTypes[_typeIndex]).FullName}, {_variableName}>");
+                                    writer.WriteLine("{");
+                                    writer.WriteLine("}");
+                                }
+
+                                using (StreamWriter writer = new StreamWriter($"{_path}/{_readOnlyReferenceName}.cs"))
+                                {
+                                    writer.WriteLine("using System;");
+                                    writer.WriteLine("using FoldergeistAssets.Variables;");
+                                    writer.WriteLine("");
+                                    writer.WriteLine("[Serializable]");
+                                    writer.WriteLine($"public sealed class {_readOnlyReferenceName} : ReadOnlyVariableReference<{Type.GetType(_availableTypes[_typeIndex]).FullName}, {_variableName}>");
                                     writer.WriteLine("{");
                                     writer.WriteLine("}");
                                 }
@@ -112,8 +124,9 @@ namespace FoldergeistAssets
                         }
                         else
                         {
-                            _variableName = $"{(_readOnly ? "ReadOnly" : "")}{type.Name}Variable";
-                            _referenceName = $"{(_readOnly ? "ReadOnly" : "")}{type.Name}Reference";
+                            _variableName = $"{type.Name}Variable";
+                            _referenceName = $"{type.Name}Reference";
+                            _readOnlyReferenceName = $"ReadOnly{type.Name}Reference";
                         }
                     }
                 }
