@@ -4,7 +4,7 @@ namespace FoldergeistAssets
 {
     namespace Variables
     {
-        public abstract class ReadOnlyVariableReference<T1, T2> : Internal.ReadOnlyVariableReference where T2 : Variable<T1>
+        public abstract class ReadOnlyVariableReference<T1, T2> : Internal.VariableReference where T2 : Variable<T1>
         {
 #pragma warning disable 0649
 
