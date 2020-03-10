@@ -36,6 +36,8 @@ namespace FoldergeistAssets
                     }
                 }
             }
+
+            public static implicit operator T1(VariableReference<T1, T2> variableReference) => variableReference.Value;
         }
     }
 }
