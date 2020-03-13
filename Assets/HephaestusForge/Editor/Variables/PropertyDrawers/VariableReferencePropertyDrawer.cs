@@ -1,4 +1,4 @@
-﻿using FoldergeistAssets.Variables.Internal;
+﻿using HephaestusForge.Variables.Internal;
 using UnityEditor;
 using UnityEngine;
 

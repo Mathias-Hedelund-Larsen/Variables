@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace FoldergeistAssets
+namespace HephaestusForge
 {
     namespace Variables
     {
@@ -81,9 +81,9 @@ namespace FoldergeistAssets
                                 using (StreamWriter writer = new StreamWriter($"{_path}/{_variableName}.cs"))
                                 {
                                     writer.WriteLine("using UnityEngine;");
-                                    writer.WriteLine("using FoldergeistAssets.Variables;");
+                                    writer.WriteLine("using HephaestusForge.Variables;");
                                     writer.WriteLine("");
-                                    writer.WriteLine($"[CreateAssetMenu(fileName = \"{_variableName}\", menuName = \"FoldergeistAssets/Variables/{_variableName}\", order = 0)]");
+                                    writer.WriteLine($"[CreateAssetMenu(fileName = \"{_variableName}\", menuName = \"HephaestusForge/Variables/{_variableName}\", order = 0)]");
                                     writer.WriteLine($"public sealed class {_variableName} : Variable<{(_isList ? "System.Collections.Generic.List<" : "")}" +
                                         $"{Type.GetType(_availableTypes[_typeIndex]).FullName}{(_isList ? ">" : "")}>");
                                     writer.WriteLine("{");
@@ -93,7 +93,7 @@ namespace FoldergeistAssets
                                 using (StreamWriter writer = new StreamWriter($"{_path}/{_referenceName}.cs"))
                                 {
                                     writer.WriteLine("using System;");
-                                    writer.WriteLine("using FoldergeistAssets.Variables;");
+                                    writer.WriteLine("using HephaestusForge.Variables;");
                                     writer.WriteLine("");
                                     writer.WriteLine("[Serializable]");
                                     writer.WriteLine($"public sealed class {_referenceName} : VariableReference<{(_isList ? "System.Collections.Generic.List<" : "")}" +
@@ -105,7 +105,7 @@ namespace FoldergeistAssets
                                 using (StreamWriter writer = new StreamWriter($"{_path}/{_readOnlyReferenceName}.cs"))
                                 {
                                     writer.WriteLine("using System;");
-                                    writer.WriteLine("using FoldergeistAssets.Variables;");
+                                    writer.WriteLine("using HephaestusForge.Variables;");
                                     writer.WriteLine("");
                                     writer.WriteLine("[Serializable]");
                                     writer.WriteLine($"public sealed class {_readOnlyReferenceName} : ReadOnlyVariableReference<" +
