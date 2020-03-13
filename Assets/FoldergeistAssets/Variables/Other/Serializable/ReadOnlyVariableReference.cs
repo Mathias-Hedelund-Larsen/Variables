@@ -24,7 +24,7 @@ namespace FoldergeistAssets
                 }
             }
 
-            public static implicit operator T1(ReadOnlyVariableReference<T1, T2> variableReference) => variableReference.Value;
+            public static implicit operator T1(ReadOnlyVariableReference<T1, T2> variableReference) => variableReference.Value;            
         }
     }
 }
