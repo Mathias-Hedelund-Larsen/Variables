@@ -2,13 +2,13 @@
 using System.Linq;
 using UnityEditor;
 
-namespace FoldergeistAssets
+namespace HephaestusForge
 {
     namespace Variables
     {
         public class CreateVariableAndReference
         {
-            [MenuItem("Assets/Create/FoldergeistAssets/Scripts/Variable and (ReadOnly)Reference", false, 0)]
+            [MenuItem("Assets/Create/HephaestusForge/Scripts/Variable and (ReadOnly)Reference", false, 0)]
             private static void OpenWindowToCreateVarRef()
             {
                 var path = AssetDatabase.GUIDToAssetPath(Selection.assetGUIDs[0]);

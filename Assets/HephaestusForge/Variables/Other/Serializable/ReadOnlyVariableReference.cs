@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace FoldergeistAssets
+namespace HephaestusForge
 {
     namespace Variables
     {

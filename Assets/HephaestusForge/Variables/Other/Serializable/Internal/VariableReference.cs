@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace FoldergeistAssets
+namespace HephaestusForge
 {
     namespace Variables
     {
@@ -13,7 +13,7 @@ namespace FoldergeistAssets
 #pragma warning disable 0649
 
                 [SerializeField, HideInInspector]
-                protected bool _useConstant;
+                protected bool _useConstant = true;
 
 #pragma warning restore 0649
             }
